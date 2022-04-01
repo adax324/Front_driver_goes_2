@@ -1,0 +1,30 @@
+
+
+    <!-- Google Font: Source Sans Pro must have -->
+    <link rel="stylesheet" href='<c:url value="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"/>'>
+    <!-- Font Awesome must have-->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/fontawesome-free/css/all.min.css"/>'>
+    <!-- Theme style must have -->
+    <link rel="stylesheet" href='<c:url value="/resources/dist/css/adminlte.min.css"/>'>
+
+
+    <!-- Ionicons -->
+    <link rel="stylesheet" href='<c:url value="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>'>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"/>'>
+    <!-- iCheck -->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css"/>'>
+    <!-- JQVMap -->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/jqvmap/jqvmap.min.css"/>'>
+
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css"/>'>
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/daterangepicker/daterangepicker.css"/>'>
+    <!-- summernote -->
+    <link rel="stylesheet" href='<c:url value="/resources/plugins/summernote/summernote-bs4.min.css"/>'>
+
+<%--    no closing head tag for extra content in jsp files must close in jsp!!!   --%>
+
+
+
