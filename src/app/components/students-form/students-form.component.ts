@@ -31,4 +31,7 @@ export class StudentsFormComponent implements OnInit {
   public loadDepartments = () => {
     this.departments = this.selectedCity.departments;
   }
+  public save = () => {
+    
+  }
 }
