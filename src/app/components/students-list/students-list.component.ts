@@ -6,7 +6,7 @@ import { Student } from '../models/Student';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { }
+
 
 @Component({
   selector: 'app-students-list',
@@ -42,4 +42,4 @@ export class StudentsListComponent implements OnInit {
 //   itemsPerPageLabel = $localize`Elementów na stronie: `;
 //   lastPageLabel = $localize`Ostatnia strona`;
 //   nextPageLabel = 
-}
+// }
