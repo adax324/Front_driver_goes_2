@@ -1,223 +1,148 @@
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <app-sidebar></app-sidebar>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>abc</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Form</li>
-                        </ol>
-                    </div>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <!-- <h1>{{(student.uuid ? 'Edycja ' : 'Dodawanie ') + 'kursanta'}}</h1> -->
                 </div>
-            </div><!-- /.container-fluid -->
-        </section>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container">
+            <form [formGroup]="formGroupControl" (ngSubmit)="save()">
                 <div class="row">
+
                     <!-- left column -->
-                    <div class="col-xl-6 col-md-6 mb-6">
+                    <mat-card class="col-xl-6 col-md-6 mb-6">
                         <!-- general form elements -->
-                        <div class="card card-primary">
-                            <div class="card-header py-3">
-                                <h3 class="card-title">Dane kursanta</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
+                        <mat-card-header class="card-header py-3">
+                            <mat-card-title>Dane kursanta</mat-card-title>
+                        </mat-card-header>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        <mat-card-content>
                             
-                                <div class="card-body">
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label class="col-form-label">Imię</label>
-                                            <input class="form-control" type="text" [(ngModel)]="student.firstName">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="exampleSecondName" class="col-form-label">Nazwisko</label>
-                                            <input class="form-control" type="text" [(ngModel)]="student.lastName">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="exampleBirthDate" class="col-form-label">Data urodzenia</label>
-                                            <input class="form-control" type="date" [(ngModel)] = "student.birthDate">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="exampleEmail" class="col-form-label">Email</label>
-                                            <input class="form-control" type="text" [(ngModel)]="student.email"
-                                                   >
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="examplePhone" class="col-form-label">Tel:</label>
-                                            <input class="form-control" type="text" [(ngModel)] = "student.phoneNumber">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <label for="hoursEndCourse" class="col-form-label">Ilość pozostałych godzin:</label>
-                                            <input class="form-control form-control-sm" type="text" [(ngModel)] = "student.remainingHours" >
-                                        </div>
-                                    </div>
-                                </div>
+                            <mat-form-field class="col-12" appearance="standard">
+                                <mat-label>Imię</mat-label>
+                                <input matInput name="firstName"  formControlName="firstName">
+                                <mat-error *ngIf="formGroupControl.controls.firstName.hasError('required')">Musisz wprowadzić imię</mat-error>
+                                <mat-error *ngIf="formGroupControl.controls.firstName.hasError('minlength')">Imię musi posiadać conajmniej 3 znaki</mat-error>
+                            </mat-form-field>
 
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6 mb-6">
-                        <div class="card card-primary">
-                            <div class="card-header py-3">
-                                <h3 class="card-title">Dane szkoły</h3>
+                            <mat-form-field class="col-12" appearance="standard">
+                                <mat-label>Nazwisko</mat-label>
+                                <input matInput name="lastName" formControlName="lastName">
+                                <mat-error *ngIf="formGroupControl.controls.lastName.hasError('required')">Musisz wprowadzić nazwisko</mat-error>
+                                <mat-error *ngIf="formGroupControl.controls.lastName.hasError('minlength')">Nazwisko musi posiadać conajmniej 3 znaki</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-12" appearance="standard">
+                                <mat-label>Data urodzenia</mat-label>
+                                <input matInput [matDatepicker]="picker"
+                                    name="birthDate" formControlName="birthDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="formGroupControl.controls.birthDate.hasError('required')">Musisz wprowadzić datę urodzenia</mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class="col-12" appearance="standard">
+                                <mat-label>Email</mat-label>
+                                <input matInput name="email" formControlName="email">
+                                <mat-error *ngIf="formGroupControl.controls.email.hasError('required')">Musisz wprowadzić adres email</mat-error>
+                                <mat-error *ngIf="formGroupControl.controls.email.hasError('email')">Niepoprawny email</mat-error>
+                            </mat-form-field>
+                            <mat-form-field class="col-12" appearance="standard">
+                                <mat-label>Numer telefonu</mat-label>
+                                <input matInput name="phoneNumber" formControlName="phoneNumber">
+                            </mat-form-field>
+                            <mat-form-field class="col-12" appearance="standard">
+                                <mat-label>Ilość godzin</mat-label>
+                                <input matInput name="remainingHours" formControlName="remainingHours">
+                            </mat-form-field>
+
+                        </mat-card-content>
+                    </mat-card>
+                    <!-- Right column -->
+                    <mat-card class="col-xl-6 col-md-6 mb-6">
+
+                        <mat-card-header class="card-header py-3">
+                            <mat-card-title>Dane szkoły</mat-card-title>
+                        </mat-card-header>
+
+                        <mat-card-content>
+                            <div class="row">
+                                <mat-form-field class="col-12" appearance="standard">
+                                    <mat-label>Miasto</mat-label>
+                                    <mat-select  (selectionChange)="loadDepartments()"
+                                        name="selectedCity" formControlName="city">
+                                        <mat-option *ngFor="let city of cities" [value]="city">
+                                            {{city.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
+                            <div class="row">
+                                <mat-form-field class="col-12" appearance="standard">
+                                    <mat-label>Oddział</mat-label>
+                                    <mat-select [disabled]="!formGroupControl.controls.city.value"
+                                        name="selectedDepartment" formControlName="department">
+                                        <mat-option *ngFor="let department of departments" [value]="department">
+                                            {{department.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
 
-                            <div class="card-body">
+                                <mat-form-field class="col-12" appearance="standard">
+                                    <mat-label>Instuktorzy</mat-label>
+                                    <mat-select multiple
+                                        [disabled]="!selectedDepartment" name="selectedInstructors">
+                                        <mat-option *ngFor="let instructor of instructors" [value]="instructor">
+                                            {{instructor.firstName + ' ' + instructor.lastName}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
 
-                                <div class="form-group row">
-
-                                    <div class="col-sm-12">
-                                        <!-- select -->
-                                        <div class="form-group">
-                                            <label>Miasto</label>
-                                            <select class="form-control" [(ngModel)]="selectedCity" (change)="loadDepartments()">
-                                                <option hidden [ngValue]="undefined">Wybierz</option>
-                                                <option *ngFor="let city of cities" [ngValue]="city">{{city.name}}</option>
-
-                                            </select>
-                                        </div>
+                            </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="float-right col-2">
+                                        <button class="btn-block" color="warn" mat-raised-button>Anuluj</button>
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Oddział</label>
-                                            <select class="form-control" [disabled]="!selectedCity" [(ngModel)]="selectedDepartment">
-                                                <option hidden [ngValue]="undefined">Wybierz</option>
-                                                <option *ngFor="let department of departments">{{department.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Instruktor</label>
-                                            <select disabled class="form-control" name="instructor.id">
-                                                <option  hidden>Wybierz</option>
-                                               
-                                            </select>
-                                        </div>
+                                    <div class="float-right col-3">
+                                        <button style="width: 100%;" color="primary" mat-raised-button type="submit"
+                                            [disabled]="!formGroupControl.valid">Zapisz</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </mat-card-actions>
+
 
                         <!-- /.card-body -->
-                    </div>
+                    </mat-card>
 
                 </div>
-                <div class="row mb-2">
-                    <div class="col-2">
-                        <input class="btn btn-success btn-block mr-1" value="Zapisz" (click)="save()">
-
-                    </div>
-                    
-                    <div class="col-2">
-                        <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
-                                data-target="#myModal">
-                            Wstecz
-                        </button>
-                        <!-- The Modal -->
-                        <div class="modal" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Czy na pewno anulować?</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
+            </form>
 
 
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Nie</button>
-                                        <a style="text-decoration: none" href=''><button
-                                                type="submit" class="btn btn-danger pull-left">Tak</button></a>
-                                    </div>
 
-                                </div>
+        </div>
 
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="row mb-2">
-                    <div class="col-4">
-                       
-                            <button class="btn btn-danger btn-block" type="modal" data-target="#deleteModal">Usuń</button>
-                            <div class="modal" id="myDelete">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Czy na pewno usunąć?</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Nie</button>
-                                            <button
-                                                    type="submit" class="btn btn-danger pull-left">Tak</button>
-                                        </div>
-                    
-
-                                    </div>
-
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </section>
-    </div>
-
-    <!-- /.content -->
-
-    <footer></footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+    </section>
 </div>
-<!-- ./wrapper -->
 
-
-<!-- Page specific script -->
-<script>
-    $(function () {
-        bsCustomFileInput.init();
-    });
-</script>
-</body>
+<!-- /.content -->

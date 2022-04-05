@@ -1,9 +1,7 @@
-
-
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <app-sidebar></app-sidebar>
-    
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -22,78 +20,68 @@
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
-    
+
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-    
+
                             <!-- /.card -->
-    
+
                             <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">Lista kurstanów </h3>
                                 </div>
                                 <!-- /.card-header -->
-    
-    
+
+
                                 <div class="card-body">
                                     <div class="row">
                                         <div class=" mb-2 col-sm-2 col-md-2">
                                             <a class="btn btn-success" href="students/form">+ Dodaj kursanta</a>
-                                        
+
                                         </div>
                                     </div>
-    
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th>Imię</th>
-                                            <th>Nazwisko</th>
-                                            <th>Data urodzenia</th>
-                                            <th>Email</th>
-                                            <th>Numer telefonu</th>
-                                            <th>Instruktor</th>
-                                            <th>Pozostałe godziny</th>
-                                            <th>Gotowy do egzaminu</th>
-                                            <th>Oddział</th>
-                                            <th>Edycja</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-    
-                                        
-    
-                                            <tr *ngFor="let student of students">
-                                                <td>{{student.firstName}}</td>
-                                                <td>{{student.lastName}}</td>
-                                                <td>{{student.birthDate}}</td>
-                                                <td>{{student.email}}</td>
-                                                <td>{{student.phoneNumber}}</td>
-                                                <td>Instruktor</td>
-                                                <td>{{student.remainingHours}}</td>
-                                                <td>{{student.admittedExam}}</td>
-                                                <td>Oddział</td>
-                                                <td>Edycja</td>
-                                            </tr>
-                                        
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Imię</th>
-                                            <th>Nazwisko</th>
-                                            <th>Data urodzenia</th>
-                                            <th>Email</th>
-                                            <th>Numer telefonu</th>
-                                            <th>Instruktor</th>
-                                            <th>Pozostałe godziny</th>
-                                            <th>Gotowy do egzaminu</th>
-                                            <th>Oddział</th>
-                                            <th>Edycja</th>
-                                        </tr>
-                                        </tfoot>
+                                    <div class="mat-elevation-z8">
+                                    <table style="width: 100%;" mat-table [dataSource]="dataSource">
+                                        <!-- Position Column -->
+                                        <ng-container matColumnDef="position">
+                                            <th mat-header-cell *matHeaderCellDef>No.</th>
+                                            <td mat-cell *matCellDef="let element">{{ 1}}
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="firstName">
+                                            <th mat-header-cell *matHeaderCellDef>Name</th>
+                                            <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+                                        </ng-container>
+
+                                        <!-- Weight Column -->
+                                        <ng-container matColumnDef="lastName">
+                                            <th mat-header-cell *matHeaderCellDef>Weight</th>
+                                            <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+                                        </ng-container>
+
+                                        <!-- Symbol Column -->
+                                        <ng-container matColumnDef="birthDate">
+                                            <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                                            <td mat-cell *matCellDef="let element">{{element.birthDate}}</td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                            (click)="selection.toggle(row)"
+                                            [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
+                                            (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+
+
                                     </table>
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                                        aria-label="Select page of periodic elements">
+                                    </mat-paginator>
+                                </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -109,18 +97,18 @@
         </div>
         <!-- /.content-wrapper -->
         <app-footer></app-footer>
-    
+
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
-    
+
         </aside>
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    
-    
-    
+
+
+
     <!-- Page specific script -->
     <script>
         $(function () {
@@ -139,4 +127,4 @@
             });
         });
     </script>
-    </body>
+</body>

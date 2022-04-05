@@ -1,3 +1,5 @@
+import { Department } from "./Department";
+
 export class Student{
     uuid!:string;
     firstName!:string;
@@ -7,4 +9,5 @@ export class Student{
     phoneNumber!:String;
     remainingHours!:number;
     admittedExam!:boolean;
+    department!:Department; 
 }
