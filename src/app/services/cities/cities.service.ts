@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { City } from 'src/app/components/models/City';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +12,8 @@ export class CitiesService {
     }
 
     public getAllCities():Observable<City[]>{
+      console.log(this.url + '/all');
       return this.httpClient.get<City[]>(this.url + '/all');
+      
     }
 }
