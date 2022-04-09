@@ -1,5 +1,0 @@
-{
-    "/api": {
-    "target": "https://driver-goes-2-rest-api.herokuapp.com",
-    "secure": false
-    }
