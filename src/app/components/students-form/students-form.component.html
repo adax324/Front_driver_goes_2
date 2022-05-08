@@ -5,12 +5,12 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <!-- <h1>{{(student.uuid ? 'Edycja ' : 'Dodawanie ') + 'kursanta'}}</h1> -->
+                    <h1>{{(formGroupControl.controls.uuid ? 'Edycja ' : 'Dodawanie ') + 'kursanta'}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
+                        <li class="breadcrumb-item"><a href="#">Strona główna</a></li>
+                        <li class="breadcrumb-item active">formularz</li>
                     </ol>
                 </div>
             </div>
@@ -37,6 +37,7 @@
                             <mat-form-field class="col-12" appearance="standard">
                                 <mat-label>Imię</mat-label>
                                 <input matInput name="firstName"  formControlName="firstName">
+                                <mat-icon matSuffix style="color: grey;">account_circle</mat-icon>
                                 <mat-error *ngIf="formGroupControl.controls.firstName.hasError('required')">Musisz wprowadzić imię</mat-error>
                                 <mat-error *ngIf="formGroupControl.controls.firstName.hasError('minlength')">Imię musi posiadać conajmniej 3 znaki</mat-error>
                             </mat-form-field>
@@ -44,6 +45,7 @@
                             <mat-form-field class="col-12" appearance="standard">
                                 <mat-label>Nazwisko</mat-label>
                                 <input matInput name="lastName" formControlName="lastName">
+                                <mat-icon matSuffix style="color: grey;">person_search</mat-icon>
                                 <mat-error *ngIf="formGroupControl.controls.lastName.hasError('required')">Musisz wprowadzić nazwisko</mat-error>
                                 <mat-error *ngIf="formGroupControl.controls.lastName.hasError('minlength')">Nazwisko musi posiadać conajmniej 3 znaki</mat-error>
                             </mat-form-field>
@@ -60,16 +62,22 @@
                             <mat-form-field class="col-12" appearance="standard">
                                 <mat-label>Email</mat-label>
                                 <input matInput name="email" formControlName="email">
+                                <mat-icon matSuffix style="color: grey;">email</mat-icon>
                                 <mat-error *ngIf="formGroupControl.controls.email.hasError('required')">Musisz wprowadzić adres email</mat-error>
                                 <mat-error *ngIf="formGroupControl.controls.email.hasError('email')">Niepoprawny email</mat-error>
                             </mat-form-field>
-                            <mat-form-field class="col-12" appearance="standard">
+                            
+                            <mat-form-field class="col-8" appearance="standard">
                                 <mat-label>Numer telefonu</mat-label>
-                                <input matInput name="phoneNumber" formControlName="phoneNumber">
+                                <app-custom-tel-field formControlName="phoneNumber"></app-custom-tel-field>
+                                <mat-icon matSuffix style="color: grey;">phone</mat-icon>
+                                <mat-error *ngIf="formGroupControl.controls.phoneNumber.hasError('required')">Musisz podać numer telefonu</mat-error>
                             </mat-form-field>
-                            <mat-form-field class="col-12" appearance="standard">
+                            <mat-form-field class="col-4" appearance="standard">
                                 <mat-label>Ilość godzin</mat-label>
-                                <input matInput name="remainingHours" formControlName="remainingHours">
+                                <input type="number" matInput name="remainingHours" formControlName="remainingHours">
+                                <mat-icon matSuffix style="color: grey;">access_time_filled</mat-icon>
+                                <mat-error *ngIf="formGroupControl.controls.remainingHours.hasError('required')">Musisz podać ilość</mat-error>
                             </mat-form-field>
 
                         </mat-card-content>
@@ -86,11 +94,13 @@
                                 <mat-form-field class="col-12" appearance="standard">
                                     <mat-label>Miasto</mat-label>
                                     <mat-select  (selectionChange)="loadDepartments()"
-                                        name="selectedCity" formControlName="city">
+                                        name="selectedCity"  formControlName="city">
                                         <mat-option *ngFor="let city of cities" [value]="city">
                                             {{city.name}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-icon matSuffix style="color: grey;">my_location</mat-icon>
+                                    <mat-error *ngIf="formGroupControl.controls.city.hasError('required')">Musisz podać miasto</mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="row">
@@ -102,6 +112,8 @@
                                             {{department.name}}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-icon matSuffix style="color: gray;">apartment</mat-icon>
+                                    <mat-error *ngIf="formGroupControl.controls.department.hasError('required')">Musisz wybrać oddział</mat-error>
                                 </mat-form-field>
                             </div>
                             <div class="row">
@@ -113,6 +125,8 @@
                                         <mat-option *ngFor="let instructor of instructors" [value]="instructor">
                                             {{instructor.firstName + ' ' + instructor.lastName}}</mat-option>
                                     </mat-select>
+                                    <mat-icon matSuffix style="color: gray;">supervised_user_circle</mat-icon>
+                                    
                                 </mat-form-field>
 
                             </div>

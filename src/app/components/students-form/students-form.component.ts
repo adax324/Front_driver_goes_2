@@ -7,7 +7,9 @@ import { Department } from '../models/Department';
 import { StudentService } from 'src/app/services/students/students.service';
 import { Instructor } from '../models/Instructor';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MyTel } from 'src/app/customFields/custom-tel-field/custom-tel-field.component';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -32,7 +34,7 @@ export class StudentsFormComponent implements OnInit {
   public selectedInstructors = new FormControl();
 
   public formGroupControl: FormGroup;
-  constructor(private loader: LoaderService, private citiesService: CitiesService, private studentService: StudentService, private router: Router) {
+  constructor(private loader: LoaderService, private citiesService: CitiesService, private studentService: StudentService, private router: Router, private route: ActivatedRoute) {
     this.citiesService.getAllCities().subscribe((result) => {
       this.cities = result;
     });
@@ -41,13 +43,17 @@ export class StudentsFormComponent implements OnInit {
       lastName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       birthDate: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phoneNumber: new FormControl('', [Validators.pattern('[- +()0-9]+')]),
+      phoneNumber: new FormControl(null, [Validators.required]),
       remainingHours: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required), 
       department: new FormControl('', Validators.required)
     });
   }
   ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      console.log(params);
+    });
     this.loader.loadScript('../assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');
   }
 
@@ -56,7 +62,11 @@ export class StudentsFormComponent implements OnInit {
     this.departments = this.formGroupControl.controls.city.value.departments;
   }
   public save = () => {
-    this.studentService.save(this.formGroupControl.getRawValue()).subscribe((result) => {
+    let phoneNumber = JSON.parse(JSON.stringify(this.formGroupControl.controls.phoneNumber.value));
+    let student:Student = this.formGroupControl.getRawValue();
+    student.phoneNumber = phoneNumber.area + phoneNumber.exchange + phoneNumber.subscriber;
+
+    this.studentService.save(student).subscribe((result) => {
       if (result.uuid) {
         this.router.navigate(['/students/list']);
       }

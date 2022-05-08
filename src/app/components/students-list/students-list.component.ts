@@ -6,6 +6,8 @@ import { Student } from '../models/Student';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,13 +16,18 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
   styleUrls: ['./students-list.component.css']
 })
 export class StudentsListComponent implements OnInit {
-  public displayedColumns:string[] = ['position', 'firstName', 'lastName', 'birthDate'];
+  public displayedColumns:string[] = ['position', 'firstName', 'lastName', 'birthDate', 'email', 'phoneNumber', 'remainingHours', 'department'];
   public selection = new SelectionModel<Student>(false, []);
   dataSource!:MatTableDataSource<Student>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  public test123(row:any){
+    console.log(this.selection);
+    this.selection.select();
+    this.selection.selected[0];
+  }
 
-  constructor(private loaderService:LoaderService, private studentService:StudentService) { }
+  constructor(private loaderService:LoaderService, private studentService:StudentService, private router:Router) { }
   
   
   ngOnInit(): void {
@@ -32,14 +39,27 @@ export class StudentsListComponent implements OnInit {
 
   }
 
+  public editSelected () {
+    this.router.navigate(['students/form', this.selection.selected[0].uuid]);
+  }
+
 
 }
-// @Injectable()
-// export class PolishPaginatorIntl implements MatPaginatorIntl {
-//   changes = new Subject<viud>();
+@Injectable()
+export class PolishPaginatorIntl implements MatPaginatorIntl {
+  changes = new Subject<void>();
 
-//   firstPageLabel = $localize`Pierwsza strona`;
-//   itemsPerPageLabel = $localize`Elementów na stronie: `;
-//   lastPageLabel = $localize`Ostatnia strona`;
-//   nextPageLabel = 
-// }
+  firstPageLabel = 'Pierwsza strona';
+  itemsPerPageLabel = 'Elementów na stronie: ';
+  lastPageLabel = 'Ostatnia strona';
+  nextPageLabel = 'Następna strona';
+  previousPageLabel = 'Poprzednia strona';
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0) {
+      return 'Strona 1 z 1';
+    }
+    const amountPages = Math.ceil(length / pageSize);
+    return `Strona ${page + 1} z ${amountPages}`;
+  }
+}
+

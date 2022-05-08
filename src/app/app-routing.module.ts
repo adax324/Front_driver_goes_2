@@ -6,9 +6,10 @@ import { StudentsFormComponent } from './components/students-form/students-form.
 import { StudentsListComponent } from './components/students-list/students-list.component';
 
 const routes: Routes = [{path:'quests/list', component: QuestsListComponent},
-{path:'students/list', component: StudentsListComponent},
-{path:'students/form', component: StudentsFormComponent},
-{path:'', component: HomeComponent}];
+{path: 'students/list', component: StudentsListComponent},
+{path: 'students/form', redirectTo: 'students/form/', pathMatch: 'full'},
+{path: 'students/form/:uuid', component: StudentsFormComponent},
+{path: '', component: HomeComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
