@@ -33,7 +33,7 @@
                         <!-- form start -->
 
                         <mat-card-content>
-                            
+
                             <mat-form-field class="col-12" appearance="standard">
                                 <mat-label>Imię</mat-label>
                                 <input matInput name="firstName"  formControlName="firstName">
@@ -66,7 +66,7 @@
                                 <mat-error *ngIf="formGroupControl.controls.email.hasError('required')">Musisz wprowadzić adres email</mat-error>
                                 <mat-error *ngIf="formGroupControl.controls.email.hasError('email')">Niepoprawny email</mat-error>
                             </mat-form-field>
-                            
+
                             <mat-form-field class="col-8" appearance="standard">
                                 <mat-label>Numer telefonu</mat-label>
                                 <app-custom-tel-field formControlName="phoneNumber"></app-custom-tel-field>
@@ -93,8 +93,8 @@
                             <div class="row">
                                 <mat-form-field class="col-12" appearance="standard">
                                     <mat-label>Miasto</mat-label>
-                                    <mat-select  (selectionChange)="loadDepartments()"
-                                        name="selectedCity"  formControlName="city">
+                                    <mat-select [(value)]="selectedCity" (selectionChange)="loadDepartments($event.value)"
+                                        name="selectedCity"  formControlName="city" >
                                         <mat-option *ngFor="let city of cities" [value]="city">
                                             {{city.name}}
                                         </mat-option>
@@ -126,7 +126,7 @@
                                             {{instructor.firstName + ' ' + instructor.lastName}}</mat-option>
                                     </mat-select>
                                     <mat-icon matSuffix style="color: gray;">supervised_user_circle</mat-icon>
-                                    
+
                                 </mat-form-field>
 
                             </div>

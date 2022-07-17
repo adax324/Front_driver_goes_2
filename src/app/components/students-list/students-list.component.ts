@@ -1,13 +1,13 @@
-import { state } from '@angular/animations';
-import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
-import { LoaderService } from 'src/app/services/loader/loader.service';
-import { StudentService } from 'src/app/services/students/students.service';
-import { Student } from '../models/Student';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import {state} from '@angular/animations';
+import {Component, Injectable, OnInit, ViewChild} from '@angular/core';
+import {LoaderService} from 'src/app/services/loader/loader.service';
+import {StudentService} from 'src/app/services/students/students.service';
+import {Student} from '../models/Student';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
+import {Subject} from 'rxjs';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -16,35 +16,40 @@ import { Router } from '@angular/router';
   styleUrls: ['./students-list.component.css']
 })
 export class StudentsListComponent implements OnInit {
-  public displayedColumns:string[] = ['position', 'firstName', 'lastName', 'birthDate', 'email', 'phoneNumber', 'remainingHours', 'department'];
+  public displayedColumns: string[] = ['position', 'firstName', 'lastName', 'birthDate', 'email', 'phoneNumber', 'remainingHours', 'department'];
   public selection = new SelectionModel<Student>(false, []);
-  dataSource!:MatTableDataSource<Student>;
+  dataSource!: MatTableDataSource<Student>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  public test123(row:any){
-    console.log(this.selection);
-    this.selection.select();
-    this.selection.selected[0];
+  constructor(private loaderService: LoaderService,
+              private studentService: StudentService,
+              private router: Router
+  ) {
   }
 
-  constructor(private loaderService:LoaderService, private studentService:StudentService, private router:Router) { }
-  
-  
+
   ngOnInit(): void {
-  this.loaderService.loadDTJsAndCss();  
-  this.studentService.getAllStudents().subscribe((result) => {
-    this.dataSource = new MatTableDataSource<Student>(result);
-    this.dataSource.paginator = this.paginator;
-  });
+    this.loaderService.loadDTJsAndCss();
+    this.studentService.getAllStudents().subscribe((result) => {
+      this.dataSource = new MatTableDataSource<Student>(result);
+      this.dataSource.paginator = this.paginator;
+    });
 
   }
 
-  public editSelected () {
+  public editSelected() {
     this.router.navigate(['students/form', this.selection.selected[0].uuid]);
+  }
+
+  public deleteSelected() {
+    this.studentService.delete(this.selection.selected[0].uuid).subscribe(() => {
+      this.dataSource
+    });
   }
 
 
 }
+
 @Injectable()
 export class PolishPaginatorIntl implements MatPaginatorIntl {
   changes = new Subject<void>();
@@ -54,6 +59,7 @@ export class PolishPaginatorIntl implements MatPaginatorIntl {
   lastPageLabel = 'Ostatnia strona';
   nextPageLabel = 'Następna strona';
   previousPageLabel = 'Poprzednia strona';
+
   getRangeLabel(page: number, pageSize: number, length: number): string {
     if (length === 0) {
       return 'Strona 1 z 1';

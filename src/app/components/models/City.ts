@@ -1,6 +1,7 @@
 import { Department } from "./Department";
 
-export class City{
-    name!:string;
-    departments!:Department[];
+export interface City{
+    id:string
+    name:string;
+    departments:Department[];
 }
