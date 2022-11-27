@@ -7,9 +7,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { QuestsListComponent } from './components/quests-list/quests-list.component';
 import { HomeComponent } from './components/home/home.component';
-import { PolishPaginatorIntl, StudentsListComponent } from './components/students-list/students-list.component';
-import { HttpClientModule } from '@angular/common/http';
-import { StudentsFormComponent } from './components/students-form/students-form.component';
+import { StudentListComponent } from './components/student-list/student-list.component';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
+import { StudentFormComponent } from './components/student-form/student-form.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -24,12 +24,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import {MatIconModule} from '@angular/material/icon';
 import { MyTelInput } from './customFields/custom-tel-field/custom-tel-field.component';
-
-
-
-
-
-
+import { TeacherListComponent } from './components/teacher-list/teacher-list.component';
+import { TeacherFormComponent } from './components/teacher-form/teacher-form.component';
+import {PolishPaginator} from "./customFields/customPaginator/PolishPaginator";
+import { LoginComponent } from './components/login/login.component';
+import {AuthService} from "./services/auth.service";
+import {XhrInterceptor} from "./utility/xml.interceptor";
 
 
 @NgModule({
@@ -39,9 +39,12 @@ import { MyTelInput } from './customFields/custom-tel-field/custom-tel-field.com
     FooterComponent,
     QuestsListComponent,
     HomeComponent,
-    StudentsListComponent,
-    StudentsFormComponent,
-    MyTelInput
+    StudentListComponent,
+    StudentFormComponent,
+    MyTelInput,
+    TeacherListComponent,
+    TeacherFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -58,12 +61,15 @@ import { MyTelInput } from './customFields/custom-tel-field/custom-tel-field.com
     MatSelectModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatCheckboxModule, 
+    MatCheckboxModule,
     MatPaginatorModule,
     MatIconModule
 
   ],
-  providers: [{provide: MatPaginatorIntl, useClass: PolishPaginatorIntl}, {provide: MAT_DATE_LOCALE, useValue: 'pl-PL'}],
+  providers: [AuthService,
+    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
+    {provide: MatPaginatorIntl, useClass: PolishPaginator},
+    {provide: MAT_DATE_LOCALE, useValue: 'pl-PL'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

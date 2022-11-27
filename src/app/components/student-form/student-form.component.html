@@ -106,7 +106,7 @@
                             <div class="row">
                                 <mat-form-field class="col-12" appearance="standard">
                                     <mat-label>Oddział</mat-label>
-                                    <mat-select [disabled]="!formGroupControl.controls.city.value"
+                                    <mat-select [(value)]="selectedDepartment" [disabled]="!formGroupControl.controls.city.value"
                                         name="selectedDepartment" formControlName="department">
                                         <mat-option *ngFor="let department of departments" [value]="department">
                                             {{department.name}}

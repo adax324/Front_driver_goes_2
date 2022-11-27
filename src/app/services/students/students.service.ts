@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
-import {Student} from 'src/app/components/models/Student';
+import {Student} from 'src/app/models/Student';
 import {environment} from 'src/environments/environment';
 
 @Injectable({
@@ -30,7 +30,8 @@ export class StudentService {
 
   public delete(uuid: string): any {
     let params = new HttpParams();
-    params.append("uuid", uuid);
+    params = params.append("uuid", uuid);
     return this.http.delete(this.BASE_URL + "/delete", {params: params})
   }
+
 }

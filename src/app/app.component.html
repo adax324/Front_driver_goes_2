@@ -1,11 +1,7 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <app-sidebar></app-sidebar>
+        <app-sidebar *ngIf="rootScope.showSidebar"></app-sidebar>
         <router-outlet></router-outlet>
-        <app-footer></app-footer>
-
-
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
+        <app-footer *ngIf="rootScope.showFooter"></app-footer>
     </div>
 </body>

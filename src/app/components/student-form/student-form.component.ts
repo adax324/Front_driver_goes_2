@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader/loader.service';
-import { Student } from '../models/Student';
+import { Student } from '../../models/Student';
 import { CityService } from 'src/app/services/city.service';
-import { City } from '../models/City';
-import { Department } from '../models/Department';
+import { City } from '../../models/City';
+import { Department } from '../../models/Department';
 import { StudentService } from 'src/app/services/students/students.service';
-import { Instructor } from '../models/Instructor';
+import { Instructor } from '../../models/Instructor';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyTel } from 'src/app/customFields/custom-tel-field/custom-tel-field.component';
@@ -14,11 +14,11 @@ import {DepartmentService} from "../../services/department.service";
 
 
 @Component({
-  selector: 'app-students-form',
-  templateUrl: './students-form.component.html',
-  styleUrls: ['./students-form.component.css']
+  selector: 'app-student-form',
+  templateUrl: './student-form.component.html',
+  styleUrls: ['./student-form.component.css']
 })
-export class StudentsFormComponent implements OnInit {
+export class StudentFormComponent implements OnInit {
   private student!: Student;
   public cities!: City[];
   public selectedCity!: City;
@@ -51,7 +51,7 @@ export class StudentsFormComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.studentService.get(params.uuid).subscribe(student => {
-        if (student != null) {
+        if (params.uuid) {
           this.loadStudent(student);
         }
       });
@@ -73,7 +73,7 @@ export class StudentsFormComponent implements OnInit {
     }
     this.studentService.save(studentToPersist).subscribe((result) => {
       if (result.uuid) {
-        this.router.navigate(['/students/list']);
+        this.router.navigate(['/student/list']);
       }
     });
   }
@@ -85,7 +85,14 @@ export class StudentsFormComponent implements OnInit {
     let selectedCity = this.cities.filter(city => city.id == student.department.city.id);
     if (selectedCity.length > 0) {
       this.selectedCity = selectedCity[0];
+      this.departmentService.findByCity(this.selectedCity.id).subscribe(result => {
+        this.departments = result;
+        let selectedDepartment = result.filter(department => department.id == student.department.id);
+        if (selectedDepartment.length == 1)
+          this.selectedDepartment = selectedDepartment[0];
+      })
     }
+
     this.formGroupControl.setValue({
       firstName: student.firstName,
       lastName: student.lastName,

@@ -138,7 +138,7 @@
                      alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Użytkownik:</a>
+                <a href="#" class="d-block">Użytkownik: {{test}}</a>
             </div>
         </div>
 
@@ -158,17 +158,23 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href='/quests/list' class="nav-link">
+                            <a routerLink="/quest/list" class="nav-link">
                                 <i class="fas fa-atom nav-icon"></i>
                                 <p>Zajęcia</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a routerLink="/students/list" class="nav-link">
+                            <a routerLink="/student/list" class="nav-link">
                                 <mat-icon>school</mat-icon>
                                 <p> Kursanci</p>
                             </a>
                         </li>
+                      <li class="nav-item">
+                        <a routerLink="/teacher/list" class="nav-link">
+                          <mat-icon>group</mat-icon>
+                          <p> Instruktorzy</p>
+                        </a>
+                      </li>
                     </ul>
 
                 </li>
@@ -209,7 +215,7 @@
 
                 </li>
                 <li class="nav-item">
-                    <a href='/logout' class="nav-link">
+                    <a routerLink="" (click)="logout()" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Wyloguj</p>
                     </a>
