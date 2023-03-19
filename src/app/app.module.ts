@@ -30,6 +30,7 @@ import {PolishPaginator} from "./customFields/customPaginator/PolishPaginator";
 import { LoginComponent } from './components/login/login.component';
 import {AuthService} from "./services/auth.service";
 import {XhrInterceptor} from "./utility/xml.interceptor";
+import { AccessGuard } from './utility/access-guard';
 
 
 @NgModule({
@@ -66,7 +67,7 @@ import {XhrInterceptor} from "./utility/xml.interceptor";
     MatIconModule
 
   ],
-  providers: [AuthService,
+  providers: [AuthService, AccessGuard, 
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
     {provide: MatPaginatorIntl, useClass: PolishPaginator},
     {provide: MAT_DATE_LOCALE, useValue: 'pl-PL'}],

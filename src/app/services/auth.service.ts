@@ -33,10 +33,10 @@ export class AuthService {
   //   })
   // }
 
-  async authenticate(credentials: any, callback: any) {
-    let resposne = await this.http.post(this.url + '/signin', credentials).toPromise();
-    console.log(resposne);
-  }
+  authenticate(credentials: any, callback: any) {
+    return this.http.post(this.url + '/signin', credentials).toPromise();
+    }
+    
   logout() {
     this.http.post(environment.apiUrl + '/logout', {}).subscribe(
       () => {

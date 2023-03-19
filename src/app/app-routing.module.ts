@@ -6,14 +6,15 @@ import {StudentFormComponent} from './components/student-form/student-form.compo
 import {StudentListComponent} from './components/student-list/student-list.component';
 import {TeacherListComponent} from "./components/teacher-list/teacher-list.component";
 import {LoginComponent} from "./components/login/login.component";
+import { AccessGuard } from './utility/access-guard';
 
 const routes: Routes = [
-  {path: 'quest/list', component: QuestsListComponent},
-  {path: 'student/list', component: StudentListComponent},
+  {path: 'quest/list', component: QuestsListComponent, data: { requiresLogin: true }, canActivate: [AccessGuard]},
+  {path: 'student/list', component: StudentListComponent, data: { requiresLogin: true }, canActivate: [AccessGuard]},
   {path: 'student/form', redirectTo: 'student/form/', pathMatch: 'full'},
-  {path: 'student/form/:uuid', component: StudentFormComponent},
-  {path: '', component: HomeComponent},
-  {path: 'teacher/list', component: TeacherListComponent},
+  {path: 'student/form/:uuid', component: StudentFormComponent, data: { requiresLogin: true }, canActivate: [AccessGuard]},
+  {path: '', component: HomeComponent, data: { requiresLogin: true }, canActivate: [AccessGuard]},
+  {path: 'teacher/list', component: TeacherListComponent, data: { requiresLogin: true }, canActivate: [AccessGuard]},
   {path: 'login', component: LoginComponent}];
 
 @NgModule({
