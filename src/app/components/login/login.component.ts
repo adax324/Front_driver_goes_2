@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.authService.authenticate(this.credentials.getRawValue(), () => {
         this.rootScope.showSidebar = true;
         this.rootScope.showFooter = true;
-        this.router.navigateByUrl('/student/form');
+        this.router.navigateByUrl('/');
       });
     }
   }

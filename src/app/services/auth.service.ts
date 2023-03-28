@@ -34,7 +34,7 @@ export class AuthService {
   // }
 
   authenticate(credentials: any, callback: any) {
-    return this.http.post(this.url + '/signin', credentials).toPromise();
+    return this.http.post(this.url + '/signin', credentials).toPromise()
     }
     
   logout() {
