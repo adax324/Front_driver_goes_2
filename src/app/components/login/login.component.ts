@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {RootScope} from "../../services/RootScope";
 
 @Component({
   selector: 'app-login',
@@ -19,10 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private http: HttpClient,
-              private router: Router,
-              private rootScope: RootScope) {
-    rootScope.showSidebar = false;
-    rootScope.showFooter = false;
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -31,8 +27,6 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.credentials.valid) {
       this.authService.authenticate(this.credentials.getRawValue(), () => {
-        this.rootScope.showSidebar = true;
-        this.rootScope.showFooter = true;
         this.router.navigateByUrl('/');
       });
     }

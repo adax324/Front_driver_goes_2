@@ -29,8 +29,8 @@ import { TeacherFormComponent } from './components/teacher-form/teacher-form.com
 import {PolishPaginator} from "./customFields/customPaginator/PolishPaginator";
 import { LoginComponent } from './components/login/login.component';
 import {AuthService} from "./services/auth.service";
-import {XhrInterceptor} from "./utility/xml.interceptor";
-import { AccessGuard } from './utility/access-guard';
+import {XhrInterceptor} from "./utils/xml.interceptor";
+import { AccessGuard } from './utils/access-guard';
 
 
 @NgModule({

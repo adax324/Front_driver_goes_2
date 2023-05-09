@@ -2,11 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SelectionModel} from "@angular/cdk/collections";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
-import {LoaderService} from "../../services/loader/loader.service";
 import {Router} from "@angular/router";
-import {CommonUtility} from "../../utility/CommonUtility";
 import {PhoneNumber} from "../../models/PhoneNumber";
 import {Employee} from "../../models/Employee";
+import { CommonUtils } from 'src/app/utils/common-utils';
 
 @Component({
   selector: 'app-teacher-list',
@@ -19,8 +18,7 @@ export class TeacherListComponent implements OnInit {
   dataSource!: MatTableDataSource<Employee>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private router: Router,
-              public commonUtility: CommonUtility
+  constructor(private router: Router, public commonUtils: CommonUtils
   ) {
   }
 

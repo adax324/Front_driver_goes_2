@@ -1,7 +1,12 @@
-<body class="hold-transition sidebar-mini">
+<!-- standard application -->
+<body *ngIf="showMain" class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <app-sidebar *ngIf="rootScope.showSidebar"></app-sidebar>
+        <app-sidebar></app-sidebar>
         <router-outlet></router-outlet>
-        <app-footer *ngIf="rootScope.showFooter"></app-footer>
+        <app-footer></app-footer>
     </div>
+</body>
+<!-- special views without wrappers for login etc -->
+<body *ngIf="!showMain">
+    <router-outlet></router-outlet>
 </body>

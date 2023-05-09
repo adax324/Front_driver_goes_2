@@ -7,7 +7,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
 import {Router} from '@angular/router';
 import {PhoneNumber} from "../../models/PhoneNumber";
-import {CommonUtility} from "../../utility/CommonUtility";
+import { CommonUtils } from 'src/app/utils/common-utils';
 
 
 @Component({
@@ -22,8 +22,8 @@ export class StudentListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private studentService: StudentService,
-              private router: Router,
-              public commonUtility:CommonUtility
+              private router: Router, 
+              public commonUtils: CommonUtils
   ) {
   }
 

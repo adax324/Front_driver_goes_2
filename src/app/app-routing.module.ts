@@ -6,7 +6,7 @@ import {StudentFormComponent} from './components/student-form/student-form.compo
 import {StudentListComponent} from './components/student-list/student-list.component';
 import {TeacherListComponent} from "./components/teacher-list/teacher-list.component";
 import {LoginComponent} from "./components/login/login.component";
-import { AccessGuard } from './utility/access-guard';
+import { AccessGuard } from './utils/access-guard';
 
 const routes: Routes = [
   {path: 'quest/list', component: QuestsListComponent, data: { requiresLogin: true }, canActivate: [AccessGuard]},

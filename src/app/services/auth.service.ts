@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {environment} from "../../environments/environment";
-import {finalize} from "rxjs/operators";
-import {Router} from "@angular/router";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "../../environments/environment";
+import { finalize } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
   private url = environment.apiUrl + '/api/auth';
   authenticated = false;
 
-  constructor(private http: HttpClient, private router:Router,) {
+  constructor(private http: HttpClient, private router: Router,) {
 
   }
   // OLD BASIC AUTH
@@ -34,9 +34,13 @@ export class AuthService {
   // }
 
   authenticate(credentials: any, callback: any) {
-    return this.http.post(this.url + '/signin', credentials).toPromise()
-    }
-    
+    this.http.post(this.url + '/signin', credentials).subscribe(result => {
+      callback();
+    }, error => {
+        this.router.navigateByUrl('/login');
+    });
+  }
+
   logout() {
     this.http.post(environment.apiUrl + '/logout', {}).subscribe(
       () => {
