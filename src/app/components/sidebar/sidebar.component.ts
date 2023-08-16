@@ -11,7 +11,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  user?:User;
+  user:User | null;
 
   constructor(private loaderService: LoaderService,
               private authService: AuthService) {

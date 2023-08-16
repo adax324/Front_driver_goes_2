@@ -15,10 +15,7 @@ export class AccessGuard implements CanActivate {
             if (!this.auth.authenticated) {
                 this.auth.authenticate(null, () => {
                     resolve(true);
-                    this.rootScope.show.main = true;
-                    this.auth.authenticated = true;
-                 
-                })
+                });
                     
             
             } else

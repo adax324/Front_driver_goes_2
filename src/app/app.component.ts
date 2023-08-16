@@ -1,7 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { LoaderService } from './services/loader/loader.service';
-import { Show } from './utils/root-scope';
 
 @Component({
   selector: 'app-root',
