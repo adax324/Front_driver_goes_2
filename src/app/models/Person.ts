@@ -1,5 +1,6 @@
 import {PhoneNumber} from "./PhoneNumber";
 import {Department} from "./Department";
+import { Authority } from "../enums/Authority";
 
 export interface Person {
   id: number;
@@ -10,4 +11,5 @@ export interface Person {
   email: string;
   phoneNumber: PhoneNumber;
   department: Department;
+  authorities: Authority[];
 }

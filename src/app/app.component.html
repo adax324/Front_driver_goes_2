@@ -1,12 +1,8 @@
 <!-- standard application -->
-<body *ngIf="showMain" class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <app-sidebar></app-sidebar>
+        <app-sidebar *ngIf="authSrv.authenticated"></app-sidebar>
         <router-outlet></router-outlet>
-        <app-footer></app-footer>
+        <app-footer *ngIf="authSrv.authenticated"></app-footer>
     </div>
-</body>
-<!-- special views without wrappers for login etc -->
-<body *ngIf="!showMain">
-    <router-outlet></router-outlet>
 </body>

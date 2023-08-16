@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
-import { finalize } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,7 @@ import { Router } from "@angular/router";
 export class AuthService {
   private url = environment.apiUrl + '/api/auth';
   authenticated = false;
+  user:User | null = null;
 
   constructor(private http: HttpClient, private router: Router,) {
 
@@ -34,7 +34,9 @@ export class AuthService {
   // }
 
   authenticate(credentials: any, callback: any) {
-    this.http.post(this.url + '/signin', credentials).subscribe(result => {
+    this.http.post<User>(this.url + '/signin', credentials).subscribe(result => {
+      this.authenticated = !this.authenticated;
+      this.user = result;
       callback();
     }, error => {
         this.router.navigateByUrl('/login');
@@ -44,7 +46,7 @@ export class AuthService {
   logout() {
     this.http.post(environment.apiUrl + '/logout', {}).subscribe(
       () => {
-        this.authenticated = false;
+        this.user = null;
         this.router.navigateByUrl('/login')
       }
     );

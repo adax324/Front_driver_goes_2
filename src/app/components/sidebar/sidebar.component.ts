@@ -3,6 +3,7 @@ import {LoaderService} from 'src/app/services/loader/loader.service';
 import {AuthService} from "../../services/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {CityService} from "../../services/city.service";
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,22 +11,15 @@ import {CityService} from "../../services/city.service";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  test = {};
+  user:User | null;
 
   constructor(private loaderService: LoaderService,
-              private authService: AuthService,
-              private cityService: CityService) {
-    cityService.getAllCities().subscribe(result => {
-      this.test = result[0];
-    })
+              private authService: AuthService) {
+    this.user = authService.user;
   }
 
   ngOnInit(): void {
     this.loaderService.loadCSS('../assets/plugins/fontawesome-free/css/all.css');
-  }
-
-  authenticated() {
-    return this.authService.authenticated;
   }
 
   logout() {
