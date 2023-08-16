@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import { AppComponent } from "../app.component";
 import { AuthService } from "../services/auth.service";
+import { RootScope } from "./root-scope";
 
 @Injectable()
 export class AccessGuard implements CanActivate {
-    constructor(private auth: AuthService, private router: Router, private mainComponent: AppComponent) {
+    constructor(private auth: AuthService, private router: Router, private rootScope: RootScope) {
 
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
@@ -15,9 +15,9 @@ export class AccessGuard implements CanActivate {
             if (!this.auth.authenticated) {
                 this.auth.authenticate(null, () => {
                     resolve(true);
-                    this.mainComponent.switchMainView();
+                    this.rootScope.show.main = true;
                     this.auth.authenticated = true;
-                    this.router.navigateByUrl('/');
+                 
                 })
                     
             

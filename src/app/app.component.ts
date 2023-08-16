@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 import { LoaderService } from './services/loader/loader.service';
+import { Show } from './utils/root-scope';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +10,12 @@ import { LoaderService } from './services/loader/loader.service';
 })
 
 export class AppComponent implements OnInit {
-  showMain = false;
 
-  title = 'angular-client';
-  constructor(private loader: LoaderService
+  title = 'Driver Go 2 client';
+  constructor(private loader: LoaderService, public authSrv: AuthService
   ){
-    this.loader.loadDTJsAndCss();
+    this.loader.loadDTJsAndCss()
   }
   ngOnInit(): void {
-  }
-  switchMainView() {
-    this.showMain = !this.showMain;
   }
 }
